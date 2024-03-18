@@ -1,0 +1,2 @@
+after adding the useEffect function to Books.jsx, backend server does not allow the application to use the backend API
+	- to fix this, we need to install a library in the backend folder "$ npm i cors"

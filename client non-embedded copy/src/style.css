@@ -1,0 +1,219 @@
+.App{
+    /*
+    attributes below were what was messing up entire window
+    i thought maybe adding these would allow the size of the entire dom to adjust 
+    with window size but it actually functions as intended without these
+    these force x and y scrollbars and cuts off top of dom when window is too small
+    also cause a large margin at the top of page
+    height: 100vh;
+    width: 100vw;
+    */
+    padding: 0px 100px;
+
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color:rgb(81, 77, 77);
+}
+
+.header{
+    
+    
+    width: 95vw;
+    
+    border: 5px solid black;
+    margin: 1% auto 2% auto;
+    font-family: 'Times New Roman', Times, serif;
+    font-variant: small-caps;
+    font-size: x-large;
+    text-decoration: underline;
+    /*flex: 0 0 100px;*/
+    color:black;
+    
+    background-color: #f0f0f0;
+    display: flex;
+    /*align-items: center; /*<- i dont think this is required since justify-content adjusts properly. plus it changes nothing?*/
+    justify-content: center;
+    /*padding-left: 20px;*/
+}
+
+/*.description, .price, .title{
+    /* auto adjust all margins for even spacing?
+    
+    border: solid black; /*TEST
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 5px 0px;
+    gap: 50px;
+    
+}*/
+
+.books{ /*container*/
+    display:flex; /*allows multiple rows when window shrinks horizontally instead of needing to scroll*/
+    flex-wrap: wrap;
+    overflow-y: auto;
+    overflow-x: auto;
+    padding-top:1%;
+    gap: 10px; /* adjust padding between row cells. depending on window size, resizes text space to make more room*/
+    
+    /*border: solid pink; /*TEST*/
+}
+
+
+/* maybe use grid to evenly space each container/make each take up the same amount of space with relevant text size */
+.book{ /* container item */
+    flex: 1;
+    /*
+    below ensures the same space between all books regardless of window size
+    which sounds better but it kinda looks a little outdated at certain sizes
+    leaving these out and using the Books.js method setTopPadding() makes
+    inconsistent spacing with last row if there are not enough books but it looks
+    more uniform across entire window
+    flex-grow: 0;
+    flex-shrink: 0;
+    */
+    margin: auto 5px 20px 5px; /* adds a little bit of spacing between top/bottom of wrapped rows*/
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /*adjust padding betwen collumn cells inside of a book*/
+    align-items: center;
+    /*margin-right: 10px; /*why do i need this? doesn't seem to change anything*/
+    /*margin-bottom: 20px;*/
+    padding-bottom: 10px;
+
+    /*table vals*/
+    color:darkkhaki;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: smaller;
+    font-weight: lighter;
+    text-wrap:balance;
+    text-transform: capitalize;
+    /*border: solid blue;/*TEST*/
+    height: 50vh; /*THIS is what i was looking for. setting the height of each book is what keeps things lined up
+                    leaving the width alone so that it adjusts with window*/
+}
+
+.title{
+    /*border: solid black; /*TEST*/
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding: auto auto;
+    overflow: auto; /*solves text overflow problem and shows all 45 chars?*/
+    white-space: normal;
+    /*gap: 50px;*/
+}
+
+.description{
+    margin: 10px auto;
+    padding:auto;
+
+    /*i think these help with aligning the text to the same height regardless of desc size?*/
+    height: 25px;
+    display: flex;
+    align-items: center;
+    /*overflow:scroll; /*need to figure out how to do this without having scroll bar take up most space */
+   
+}
+/*ul{
+    gap: 15px;
+}*/
+li{
+    list-style-type: none;
+    /*border: solid green; /*TEST*/
+    margin: 0 10px; /*doesnt seem to do anything */
+
+    /*i think these help with aligning the text to the same height regardless of desc size?
+    however, the text now exceeds the borders to self adjust? this shouldn't be a problem
+    since im only using the borders for troubleshooting but im not entirely sure whats going on
+    theres probably a ton of broken behavior thats compounding but the end result is uniformity so....meh?*/
+    display: block;
+    height: 5%;
+    /*padding: auto 0px; doesnt seem to do anything */
+    /*gap: 500px;*/
+}
+.titleLi{
+    /*color: red;
+    padding: 5px 2px;*/
+}
+img{
+    padding:25px;/* this seems to be what was causing the issue with titles, desc, and price being misaligned
+                    this makes container large enough to compensate for size however, it seems to only allow
+                    a max char limit of 36 isntead of the allowed 45limi */
+    margin:auto auto;
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    background-color: rgb(193, 227, 216);
+}
+
+.delete{
+    margin: 10px 0px 0px 0px;
+    
+    border:none;
+    padding: 3px 6px;
+    background-color: rgb(255, 231, 231);
+    cursor: pointer;
+    /*border: 1px solid rgb(255, 231, 231);/*TEST*/
+}
+
+.update{
+    margin: 10px 0px 0px 0px;
+
+    border:none;
+    padding: 3px 6px;
+    background-color: rgb(243, 239, 239);
+    cursor: pointer;
+    /*border: 1px solid rgb(204, 204 , 243);/*TEST*/
+    color: rgb(139, 139, 234);
+}
+
+.form{ /*both update and add forms*/
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/*add conditional that changes color based on correct/incorrect inut?*/
+input{ /* all inputs (add and update) */
+    width: 25vw;
+    height: 3vh;
+    padding: 10px;
+    text-align: center;
+    font-size: larger;
+    color: blueviolet;  /*input test in '/add' route*/
+    border: 1px solid rgb(128, 128, 128);/*file upload border*/
+}
+
+.formButton{ /*form buttons for both add and update routes*/
+    height: 5vh;
+    border: none;
+    padding: 10px;
+    margin: auto 10px;  /* keeps button inline with text boxes regardless of window width*/
+    width: 25vw;
+    text-align: center;
+    
+
+    background-color: green;
+    font-size: large;
+    text-transform: uppercase;
+    color: white;
+    font-weight:bold;
+    cursor: pointer;
+}
+
+.addButton{ /*Add book button on home page*/
+    /*border: dashed black; /*TEST*/
+    padding: 10px;
+    margin: 5vh 3px;
+
+    background-color: rgb(255, 215, 152);
+    font-size: large;
+    text-transform:capitalize;
+    color: white;
+    font-weight:bold;
+    cursor: pointer;
+
+}
